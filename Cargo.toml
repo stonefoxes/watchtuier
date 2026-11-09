@@ -1,0 +1,31 @@
+[package]
+name = "watchtuier"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.80"
+
+[[bin]]
+name = "watchtuier"
+path = "src/main.rs"
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serialport = { version = "4", default-features = false }
+if-addrs = "0.13"
+dns-lookup = "2"
+
+# Tray front-end (StatusNotifierItem + freedesktop notifications), Linux/BSD.
+[target.'cfg(target_os = "linux")'.dependencies]
+arboard = { version = "3.7.0", default-features = false, features = ["wayland-data-control"] }
+ksni = { version = "0.3.7", features = ["blocking"] }
+notify-rust = "4.17.0"
+
+[dev-dependencies]
+ratatui = "0.29"
+
+[profile.release]
+lto = "thin"
